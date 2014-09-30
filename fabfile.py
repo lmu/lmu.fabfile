@@ -58,14 +58,16 @@ def scan_hostnames():
     import socket
     host_list = []
     for ip_subset in (list(xrange(97,123))+list(xrange(193,251))):
-        try: 
-            result = socket.gethostbyaddr('10.153.101.'+str(ip_subset))
-            test_ping = run('ping -c 1 10.153.101.'+str(ip_subset), quiet=True, warn_only=True)
-            if test_ping.succeeded: 
+        test_ping = run('ping -c 1 10.153.101.'+str(ip_subset), quiet=True, warn_only=True)
+        result = ('10.153.101.'+str(ip_subset), [], '10.153.101.'+str(ip_subset))
+        if test_ping.succeeded:
+            try: 
+                result = socket.gethostbyaddr('10.153.101.'+str(ip_subset))
                 host_list.append(result)
-            print(result)
-        except socket.herror:
-            pass
+            except socket.herror:
+                pass
+            host_list.append(result)
+            print result
     hostname_list = list(name[0] for  name in  host_list)
     return hostname_list
 
