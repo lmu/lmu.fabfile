@@ -63,9 +63,10 @@ def scan_hostnames():
         if test_ping.succeeded:
             try: 
                 result = socket.gethostbyaddr('10.153.101.'+str(ip_subset))
-                host_list.append(result)
             except socket.herror:
                 pass
+            except:
+		import ipdb; ipdb.set_trace()
             host_list.append(result)
             print result
     hostname_list = list(name[0] for  name in  host_list)
