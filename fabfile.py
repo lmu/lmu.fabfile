@@ -18,15 +18,9 @@ from fabric.contrib.files import exists
 
 #from lmu_settings_old import hosts as lmu_hosts
 from all_hosts import hosts as lmu_hosts
-from lmu_settings import roledefs as lmu_roledefs
-
-from lmu_ref_vi5.cert_check_tasks import test_certs_java
-from lmu_ref_vi5.cert_check_tasks import test_certs_ssl
-from lmu_ref_vi5.distribute_certs import distribute_ssl_authority_certs
 
 env.hosts = lmu_hosts
 
-env.roledefs = lmu_roledefs
 
 @task
 def hello():
@@ -95,7 +89,7 @@ def scan_hostnames():
             except socket.herror:
                 pass
             except:
-        import ipdb; ipdb.set_trace()
+                import ipdb; ipdb.set_trace()
             host_list.append(result)
             print(result)
     hostname_list = list(name[0] for  name in  host_list)
